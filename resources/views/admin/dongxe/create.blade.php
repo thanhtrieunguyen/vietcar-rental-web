@@ -2,98 +2,46 @@
 
 @section('content')
     @include('admin.nav')
-    <div class="row mt-4">
-        <div class="col-8 offset-2">
-            <div class="card rounded-lg border-0 shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex flex-row justify-content-between align-items-center py-3">
+    <div class="max-w-7xl mx-auto px-4 mt-6">
+        <div class="flex justify-center">
+            <div class="w-full max-w-4xl">
+                <div class="bg-white rounded-lg shadow-sm border-0 p-6">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 py-3 mb-4">
                         <div>
-                            <h5 class="card-title">Thêm mới dòng xe</h5>
+                            <h5 class="text-xl font-bold">Thêm mới dòng xe</h5>
                         </div>
                         <div>
-                            <a href="{{ route('dongxe.index') }}" class="btn btn-outline-info"><i class="fas fa-list-ul"></i> Danh
-                                sách</a>
+                            <a href="{{ route('dongxe.index') }}" class="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg font-semibold hover:bg-blue-200 transition-colors flex items-center gap-2">
+                                <i class="fas fa-list-ul"></i> Danh sách
+                            </a>
                         </div>
                     </div>
                     @include('layouts.notification')
                     <form action="{{ route('dongxe.store') }}" class="mb-3" method="POST" enctype="multipart/form-data">
                         @csrf
-                
-                        <div class="form-row my-2">
-                            <div class="col-md-12">
-                                <label><strong style="font-weight: 600">Tên dòng xe</strong><strong style="font-weight: 600"
-                                        class="important" aria-label="Required">(*)</strong>
-                                </label>
-
-                                <input type="text" class="form-control{{ $errors->has('tendongxe') ? ' is-invalid' : '' }}"
-                                    id="tendongxe" name="tendongxe" placeholder="Nhập tên dòng xe" value="{{ old('tendongxe') }}"
-                                    onchange="hideErrorAndClass()">
-
-                                @if ($errors->any())
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('tendongxe') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                Tên dòng xe<strong class="text-red-500">(*)</strong>
+                            </label>
+                            <input type="text" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary {{ $errors->has('tendongxe') ? 'border-red-500' : 'border-gray-300' }}"
+                                id="tendongxe" name="tendongxe" placeholder="Nhập tên dòng xe" value="{{ old('tendongxe') }}" onchange="hideErrorAndClass()">
+                            @if ($errors->any())
+                                <span class="text-red-500 text-sm mt-1 block" role="alert">
+                                    <strong>{{ $errors->first('tendongxe') }}</strong>
+                                </span>
+                            @endif
                         </div>
-                        
-
-                        
-
-                        
-                        <div class="d-flex flex-row justify-content-between align-items-center">
-                            
-                            <div>
-                                <button type="reset" class="btn btn-secondary mr-3"><i class="fas fa-sync-alt"></i> Làm
-                                    mới</button>
-                                <button type="submit" class="btn btn-success btn-add"><i class="fas fa-plus"></i>
-                                    Thêm</button>
-                            </div>
+                        <div class="flex justify-end gap-3">
+                            <button type="reset" class="px-6 py-2 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition-colors flex items-center gap-2">
+                                <i class="fas fa-sync-alt"></i> Làm mới
+                            </button>
+                            <button type="submit" class="px-6 py-2 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors flex items-center gap-2 btn-add">
+                                <i class="fas fa-plus"></i> Thêm
+                            </button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
-    {{-- START SCRIPT PREVIEW IMAGE AND RESET IMAGE --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script>
-        const resetFileInput = () => {
-            $('#inputHinh').wrap('<form>').closest('form').get(0).reset();
-            $('#inputHinh').unwrap();
-            $('#preview').empty();
-        }
-
-        const preview = (file) => {
-            const fr = new FileReader();
-            fr.onload = () => {
-                const img = document.createElement("img");
-                img.src = fr.result; // String Base64 
-                img.alt = file.name;
-                document.querySelector('#preview').append(img);
-            };
-            fr.readAsDataURL(file);
-        };
-
-        document.querySelector("#inputHinh").addEventListener("change", (ev) => {
-            if (!ev.target.files) return; // Do nothing.
-            $('#preview').empty(); // Xoá phần hiển thị preview trước khi hiển thị hình mới
-            [...ev.target.files].forEach(preview);
-        });
-    </script>
-    {{-- END SCRIPT PREVIEW IMAGE AND RESET IMAGE --}}
-
-    <script>
-        function formatCurrency(input) {
-            // Xóa tất cả ký tự không phải số và ký tự dấu phẩy khỏi giá trị của input
-            var value = input.value.replace(/[^0-9]/g, '');
-
-            // Định dạng lại giá trị thành chuỗi số có dấu phẩy ngăn cách hàng nghìn
-            value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-
-            // Gán giá trị đã định dạng lại vào input
-            input.value = value;
-        }
-    </script>
 @endsection

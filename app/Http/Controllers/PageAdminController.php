@@ -45,12 +45,17 @@ class PageAdminController extends Controller
         $startOfDay = Carbon::createFromFormat('Y-m-d H:i:s', $today . ' 00:00:00');
         $endOfDay = Carbon::createFromFormat('Y-m-d H:i:s', $today . ' 23:59:59');
 
-        $giaoDichTodays = GiaoDich::with('user', 'xe')
+        $giaoDichs = GiaoDich::with('user', 'xe')
             ->where('tinhtranggiaodich', 1)
             ->whereBetween('created_at', [$startOfDay, $endOfDay])
             ->latest()
             ->get();
 
-        return view('admin.thongke', compact('totalKhachHang', 'totalXe', 'totalMoney', 'topXes', 'giaoDichTodays'));
+        $giaoDichsChuaDuyet = GiaoDich::with('user', 'xe')
+            ->where('tinhtranggiaodich', 0)
+            ->latest()
+            ->get();
+
+        return view('admin.thongke', compact('totalKhachHang', 'totalXe', 'totalMoney', 'topXes', 'giaoDichs', 'giaoDichsChuaDuyet'));
     }
 }

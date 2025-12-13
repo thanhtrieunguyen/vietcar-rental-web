@@ -1,87 +1,94 @@
 @extends('layouts.index')
 
 @section('content')
-    <div class="row my-4">
-        <div class="col-6 offset-3">
-            <div class="card border-0 shadow">
-                <div class="card-body">
-                    <h5 class="card-title text-center text-uppercase mt-4">Đăng ký</h5>
+    <div class="flex justify-center my-8">
+        <div class="w-full max-w-2xl">
+            <div class="bg-white rounded-lg shadow-lg border-0">
+                <div class="p-6">
+                    <h5 class="text-center uppercase text-2xl font-bold mt-6 mb-6">Đăng ký</h5>
                     @include('layouts.notification')
                     <form action="{{ route('auth.dangky') }}" method="POST">
                         @csrf
-                        <div class="form-group">
-                            <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
-                                name="email" placeholder="Nhập email"  value="{{ old('email') }}">
+                        <div class="mb-4">
+                            <input type="email" 
+                                   class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary {{ $errors->has('email') ? 'border-red-500' : 'border-gray-300' }}"
+                                   name="email" placeholder="Nhập email" value="{{ old('email') }}">
 
                             @if ($errors->has('email'))
-                                <span class="invalid-feedback" role="alert">
+                                <span class="text-red-500 text-sm mt-1 block" role="alert">
                                     <strong>{{ $errors->first('email') }}</strong>
                                 </span>
                             @endif
                         </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
-                                name="password" placeholder="Nhập mật khẩu" >
+                        <div class="mb-4">
+                            <input type="password" 
+                                   class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary {{ $errors->has('password') ? 'border-red-500' : 'border-gray-300' }}"
+                                   name="password" placeholder="Nhập mật khẩu">
 
                             @if ($errors->has('password'))
-                                <span class="invalid-feedback" role="alert">
+                                <span class="text-red-500 text-sm mt-1 block" role="alert">
                                     <strong>{{ $errors->first('password') }}</strong>
                                 </span>
                             @endif
                         </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control" name="password_confirmation"
-                                placeholder="Nhập lại mật khẩu" >
+                        <div class="mb-4">
+                            <input type="password" 
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                                   name="password_confirmation" placeholder="Nhập lại mật khẩu">
                         </div>
-                        <div class="form-row my-3">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control{{ $errors->has('hoten') ? ' is-invalid' : '' }}"
-                                    name="hoten" placeholder="Nhập họ tên"  value="{{ old('hoten') }}">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+                            <div>
+                                <input type="text" 
+                                       class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary {{ $errors->has('hoten') ? 'border-red-500' : 'border-gray-300' }}"
+                                       name="hoten" placeholder="Nhập họ tên" value="{{ old('hoten') }}">
 
                                 @if ($errors->has('hoten'))
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="text-red-500 text-sm mt-1 block" role="alert">
                                         <strong>{{ $errors->first('hoten') }}</strong>
                                     </span>
                                 @endif
                             </div>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control{{ $errors->has('cccd') ? ' is-invalid' : '' }}"
-                                    name="cccd" placeholder="Nhập CCCD"  value="{{ old('cccd') }}">
+                            <div>
+                                <input type="text" 
+                                       class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary {{ $errors->has('cccd') ? 'border-red-500' : 'border-gray-300' }}"
+                                       name="cccd" placeholder="Nhập CCCD" value="{{ old('cccd') }}">
 
                                 @if ($errors->has('cccd'))
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="text-red-500 text-sm mt-1 block" role="alert">
                                         <strong>{{ $errors->first('cccd') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
-                        <div class="form-row my-3">
-                            <div class="col-md-6">
-                                <input type="date" class="form-control" name="ngaysinh" placeholder="Chọn ngày sinh"
-                                     value="{{ old('ngaysinh') }}">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+                            <div>
+                                <input type="date" 
+                                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                                       name="ngaysinh" placeholder="Chọn ngày sinh" value="{{ old('ngaysinh') }}">
                             </div>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control{{ $errors->has('sdt') ? ' is-invalid' : '' }}"
-                                    name="sdt" placeholder="Nhập số điện thoại"  value="{{ old('sdt') }}">
+                            <div>
+                                <input type="text" 
+                                       class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary {{ $errors->has('sdt') ? 'border-red-500' : 'border-gray-300' }}"
+                                       name="sdt" placeholder="Nhập số điện thoại" value="{{ old('sdt') }}">
 
                                 @if ($errors->has('sdt'))
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="text-red-500 text-sm mt-1 block" role="alert">
                                         <strong>{{ $errors->first('sdt') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group">
-                            <textarea type="text" class="form-control{{ $errors->has('diachi') ? ' is-invalid' : '' }}" name="diachi"
-                                rows="2" placeholder="Nhập địa chỉ" >{{ old('diachi') }}</textarea>
+                        <div class="mb-4">
+                            <textarea class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary {{ $errors->has('diachi') ? 'border-red-500' : 'border-gray-300' }}" 
+                                      name="diachi" rows="2" placeholder="Nhập địa chỉ">{{ old('diachi') }}</textarea>
 
                             @if ($errors->has('diachi'))
-                                <span class="invalid-feedback" role="alert">
+                                <span class="text-red-500 text-sm mt-1 block" role="alert">
                                     <strong>{{ $errors->first('diachi') }}</strong>
                                 </span>
                             @endif
                         </div>
-                        <button type="submit" class="btn btn-dark btn-block mt-4">Đăng ký</button>
+                        <button type="submit" class="w-full bg-gray-800 text-white py-3 rounded-md font-semibold hover:bg-gray-900 transition-colors mt-6">Đăng ký</button>
                     </form>
                 </div>
             </div>

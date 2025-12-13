@@ -3,68 +3,71 @@
 @section('content')
     @include('admin.nav')
 
-    <div class="row mt-4">
-        <div class="col-6 offset-3">
-            <div class="card rounded-lg border-0 shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex flex-row justify-content-between align-items-center py-3">
+    <div class="max-w-7xl mx-auto px-4 mt-6">
+        <div class="flex justify-center">
+            <div class="w-full max-w-3xl">
+                <div class="bg-white rounded-lg shadow-sm border-0 p-6">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 py-3 mb-4">
                         <div>
-                            <h5 class="card-title">Thêm giao dịch</h5>
+                            <h5 class="text-xl font-bold">Thêm giao dịch</h5>
                         </div>
                         <div>
-                            <a href="{{ route('giaodich.index') }}" class="btn btn-outline-info"><i class="fas fa-list-ul"></i>
-                                Danh sách</a>
+                            <a href="{{ route('giaodich.index') }}" class="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg font-semibold hover:bg-blue-200 transition-colors flex items-center gap-2">
+                                <i class="fas fa-list-ul"></i> Danh sách
+                            </a>
                         </div>
                     </div>
                     @include('layouts.notification')
                     <form action="{{ route('giaodich.store') }}" class="mb-3" method="POST">
                         @csrf
-                        <div class="form-group">
-                            <label for="tenxe">Tên xe</label>
-                            <select class="form-control" id="tenxe" name="tenxe" required></select>
+                        <div class="mb-4">
+                            <label for="tenxe" class="block text-sm font-semibold text-gray-700 mb-2">Tên xe</label>
+                            <select class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" id="tenxe" name="tenxe" required></select>
                         </div>
-                        <div class="form-group">
-                            <label for="bienso">Biển số xe</label>
-                            <select class="form-control" id="bienso" name="bienso" required></select>
+                        <div class="mb-4">
+                            <label for="bienso" class="block text-sm font-semibold text-gray-700 mb-2">Biển số xe</label>
+                            <select class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" id="bienso" name="bienso" required></select>
                         </div>
-                        <div class="form-group">
-                            <label for="cccd">CCCD người thuê</label>
-                            <input type="text" class="form-control typeahead" id="searchcccd" name="cccd"
-                                placeholder="Tìm CCCD người thuê" required>
+                        <div class="mb-4">
+                            <label for="cccd" class="block text-sm font-semibold text-gray-700 mb-2">CCCD người thuê</label>
+                            <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary typeahead" 
+                                id="searchcccd" name="cccd" placeholder="Tìm CCCD người thuê" required>
                         </div>
-                        <div class="form-row my-3">
-                            <div class="col-md-6">
-                                <label for="ngayNhanXe">Ngày nhận xe</label>
-                                <input type="date" class="form-control" id="ngayNhanXe" name="ngaynhanxe"
-                                    placeholder="Chọn ngày nhận xe" required>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label for="ngayNhanXe" class="block text-sm font-semibold text-gray-700 mb-2">Ngày nhận xe</label>
+                                <input type="date" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" 
+                                    id="ngayNhanXe" name="ngaynhanxe" placeholder="Chọn ngày nhận xe" required>
                             </div>
-                            <div class="col-md-6">
-                                <label for="ngayTraXe">Ngày trả xe</label>
-                                <input type="date" class="form-control" id="ngayTraXe" name="ngaytraxe"
-                                    placeholder="Chọn ngày trả" required>
+                            <div>
+                                <label for="ngayTraXe" class="block text-sm font-semibold text-gray-700 mb-2">Ngày trả xe</label>
+                                <input type="date" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" 
+                                    id="ngayTraXe" name="ngaytraxe" placeholder="Chọn ngày trả" required>
                             </div>
                         </div>
-                        <div class="form-row my-3">
-                            <div class="col-md-6">
-                                <label for="soNgayThue">Số ngày thuê</label>
-                                <span class="form-control js_so_ngay_thue"></span>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label for="soNgayThue" class="block text-sm font-semibold text-gray-700 mb-2">Số ngày thuê</label>
+                                <span class="block w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-50 js_so_ngay_thue"></span>
                             </div>
-                            <div class="col-md-6">
-                                <label for="donGia">Giá thuê/ngày</label>
-                                <span class="form-control js_don_gia"></span>
+                            <div>
+                                <label for="donGia" class="block text-sm font-semibold text-gray-700 mb-2">Giá thuê/ngày</label>
+                                <span class="block w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-50 js_don_gia"></span>
                             </div>
                             <input type="hidden" name="phidv" value="20000">
                         </div>
-                        <div class="form-group">
-                            <label for="thanhTien">Thành tiền</label>
-                            <span class="form-control js_thanh_tien">
-                            </span>
+                        <div class="mb-4">
+                            <label for="thanhTien" class="block text-sm font-semibold text-gray-700 mb-2">Thành tiền</label>
+                            <span class="block w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-50 js_thanh_tien"></span>
                             <input type="hidden" name="tongtien" id="tongtien">
                         </div>
-                        <div class="d-flex flex-row justify-content-end">
-                            <button type="reset" class="btn btn-secondary mr-3"><i class="fas fa-sync-alt"></i> Làm
-                                mới</button>
-                            <button type="submit" class="btn btn-success"><i class="fas fa-plus"></i> Thêm</button>
+                        <div class="flex justify-end gap-3">
+                            <button type="reset" class="px-6 py-2 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition-colors flex items-center gap-2">
+                                <i class="fas fa-sync-alt"></i> Làm mới
+                            </button>
+                            <button type="submit" class="px-6 py-2 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors flex items-center gap-2">
+                                <i class="fas fa-plus"></i> Thêm
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -76,13 +79,11 @@
 @section('script')
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
     <script type="text/javascript">
         var pathCCCD = "{{ route('getcccd') }}";
 
         $(document).ready(function() {
-            // Lấy danh sách tất cả xe
             $.ajax({
                 url: '{{ route('getall-xe') }}',
                 type: 'GET',
@@ -92,10 +93,8 @@
                     $('#bienso').append('<option value="" selected disabled>Chọn biển số xe</option>');
 
                     $.each(data, function(key, value) {
-                        $('#tenxe').append('<option value="' + value.tenxe + '">' + value
-                            .tenxe + '</option>');
-                        $('#bienso').append('<option value="' + value.bienso + '">' + value
-                            .bienso + '</option>');
+                        $('#tenxe').append('<option value="' + value.tenxe + '">' + value.tenxe + '</option>');
+                        $('#bienso').append('<option value="' + value.bienso + '">' + value.bienso + '</option>');
                     });
                 },
                 error: function() {
@@ -103,7 +102,6 @@
                 }
             });
 
-            // Xử lý sự kiện khi thay đổi tên xe
             $('#tenxe').on('change', function() {
                 var tenXe = $(this).val();
                 $('#bienso').html('<option value="" selected disabled>Chọn biển số xe</option>');
@@ -118,12 +116,10 @@
                     success: function(data) {
                         if (data.length > 0) {
                             $.each(data, function(key, value) {
-                                $('#bienso').append('<option value="' + value + '">' +
-                                    value + '</option>');
+                                $('#bienso').append('<option value="' + value + '">' + value + '</option>');
                             });
                         } else {
-                            $('#bienso').append(
-                                '<option value="">Không có biển số xe</option>');
+                            $('#bienso').append('<option value="">Không có biển số xe</option>');
                         }
                     },
                     error: function() {
@@ -131,8 +127,6 @@
                     }
                 });
             });
-
-
         });
 
         $('#searchcccd').typeahead({
@@ -149,14 +143,12 @@
     </script>
 
     <script>
-        // Lấy các phần tử cần thiết
         var ngayNhanXeInput = document.getElementById('ngayNhanXe');
         var ngayTraXeInput = document.getElementById('ngayTraXe');
         var soNgayThueElement = document.querySelector('.js_so_ngay_thue');
         var donGiaElement = document.querySelector('.js_don_gia');
         var thanhTienElement = document.querySelector('.js_thanh_tien');
 
-        // Sự kiện thay đổi biển số
         $('#bienso').on('change', function() {
             var bienSo = $(this).val();
 
@@ -185,54 +177,35 @@
             updateSoNgayThueAndThanhTien();
         });
 
-        // Hàm cập nhật số ngày thuê và tổng tiền
         function updateSoNgayThueAndThanhTien() {
             var ngayNhanXe = new Date(ngayNhanXeInput.value);
             var ngayTraXe = new Date(ngayTraXeInput.value);
 
-            // Kiểm tra xem cả hai ngày nhận xe và ngày trả xe đã được chọn
             if (ngayNhanXeInput.value && ngayTraXeInput.value) {
-                // Kiểm tra nếu ngày trả xe trước ngày nhận xe
                 if (ngayTraXe < ngayNhanXe) {
                     alert('Ngày trả xe không thể trước ngày nhận xe. Vui lòng chọn lại.');
-                    ngayTraXeInput.value = ''; // Xoá giá trị ngày trả xe
+                    ngayTraXeInput.value = '';
                     soNgayThueElement.textContent = 'Không hợp lệ';
                     thanhTienElement.textContent = 'Không hợp lệ';
-                    return; // Thoát khỏi hàm để không tiếp tục tính toán
+                    return;
                 } else {
-                    var soNgayThue = Math.ceil((ngayTraXe - ngayNhanXe) / (1000 * 3600 * 24)); // Tính số ngày thuê
-                    soNgayThueElement.textContent = soNgayThue; // Hiển thị số ngày thuê
-                    updateThanhTien(); // Cập nhật tổng tiền
+                    var soNgayThue = Math.ceil((ngayTraXe - ngayNhanXe) / (1000 * 3600 * 24));
+                    soNgayThueElement.textContent = soNgayThue;
+                    updateThanhTien();
                 }
             }
         }
 
-        // Hàm kiểm tra ngày trả xe
-        function validateNgayTraXe() {
-            var ngayNhanXe = new Date(ngayNhanXeInput.value);
-            var ngayTraXe = new Date(ngayTraXeInput.value);
-
-            if (ngayTraXe < ngayNhanXe) {
-                alert('Ngày trả xe không thể trước ngày nhận xe. Vui lòng chọn lại.');
-                ngayTraXeInput.value = ''; // Xóa giá trị ngày trả xe
-                soNgayThueElement.textContent = ''; // Xóa số ngày thuê
-                updateThanhTien(); // Cập nhật tổng tiền
-            } else {
-                updateSoNgayThue();
-            }
-        }
-
-        // Hàm cập nhật tổng tiền
         function updateThanhTien() {
-            var soNgayThue = parseInt(soNgayThueElement.textContent); // Lấy số ngày thuê
-            var donGia = parseInt(donGiaElement.textContent.replace(/\D/g, '')); // Lấy đơn giá/ngày
+            var soNgayThue = parseInt(soNgayThueElement.textContent);
+            var donGia = parseInt(donGiaElement.textContent.replace(/\D/g, ''));
 
-            // Kiểm tra nếu số ngày thuê không phải là một số hợp lệ (NaN), thì không cập nhật tổng tiền
             if (!isNaN(soNgayThue)) {
-                var thanhTien = soNgayThue * donGia; // Tính tổng tiền
-                thanhTienElement.textContent = thanhTien.toLocaleString() + ' đồng'; // Hiển thị tổng tiền
+                var thanhTien = soNgayThue * donGia;
+                thanhTienElement.textContent = thanhTien.toLocaleString() + ' đồng';
                 document.getElementById('tongtien').value = thanhTien;
             }
         }
     </script>
 @endsection
+

@@ -3,112 +3,110 @@
 @section('content')
     @include('admin.nav')
 
-    <div class="row mt-4">
-        <div class="col-md-4">
-            <div class="card rounded-lg border-0 shadow">
-                <div class="card-body">
-                    <div class="d-flex flex-row justify-content-between">
-                        <div class="lead font-weight-normal text-uppercase py-3">Khách hàng</div>
-                        <div class="text-danger py-3 my-auto"><span class="font-weight-bold mr-2">{{ $totalKhachHang }}
-                                kh</span> <i class="fas fa-users"></i></div>
+    <div class="max-w-7xl mx-auto px-4 mt-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div class="bg-white rounded-lg shadow-lg border-0 p-6">
+                <div class="flex justify-between items-center">
+                    <div class="text-lg font-normal uppercase py-3">Khách hàng</div>
+                    <div class="text-red-500 py-3 flex items-center gap-2">
+                        <span class="font-bold text-xl">{{ $totalKhachHang }} kh</span>
+                        <i class="fas fa-users text-2xl"></i>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card rounded-lg border-0 shadow">
-                <div class="card-body">
-                    <div class="d-flex flex-row justify-content-between">
-                        <div class="lead font-weight-normal text-uppercase py-3">Tổng xe</div>
-                        <div class="text-info py-3 my-auto"><span class="font-weight-bold mr-2">{{ $totalXe }}
-                                xe</span> <i class="fas fa-car"></i></i></div>
+            <div class="bg-white rounded-lg shadow-lg border-0 p-6">
+                <div class="flex justify-between items-center">
+                    <div class="text-lg font-normal uppercase py-3">Tổng xe</div>
+                    <div class="text-blue-500 py-3 flex items-center gap-2">
+                        <span class="font-bold text-xl">{{ $totalXe }} xe</span>
+                        <i class="fas fa-car text-2xl"></i>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card rounded-lg border-0 shadow">
-                <div class="card-body">
-                    <div class="d-flex flex-row justify-content-between">
-                        <div class="lead font-weight-normal text-uppercase py-3">Doanh thu</div>
-                        <div class="text-success py-3 my-auto"><span
-                                class="font-weight-bold mr-2">{{ number_format($totalMoney[0]->total_money) }} đồng</span>
-                            <i class="fas fa-hand-holding-usd"></i>
-                        </div>
+            <div class="bg-white rounded-lg shadow-lg border-0 p-6">
+                <div class="flex justify-between items-center">
+                    <div class="text-lg font-normal uppercase py-3">Doanh thu</div>
+                    <div class="text-green-500 py-3 flex items-center gap-2">
+                        <span class="font-bold text-xl">{{ number_format($totalMoney[0]->total_money) }} đồng</span>
+                        <i class="fas fa-hand-holding-usd text-2xl"></i>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-8 mt-4">
-            <div class="card rounded-lg border-0 shadow">
-                <div class="card-body">
-                    <h6 class="card-title">Danh sách cho thuê xe ngày {{ date('d/m/Y') }}</h6>
-                    <table id="myTable" class="table table-bordered">
-                        <thead>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+            <div class="bg-white rounded-lg shadow-lg border-0 p-6">
+                <h6 class="text-lg font-bold mb-4">Danh sách cho thuê xe ngày {{ date('d/m/Y') }}</h6>
+                <div class="overflow-x-auto">
+                    <table id="myTable" class="min-w-full border border-gray-300">
+                        <thead class="bg-gray-100">
                             <tr>
-                                <th scope="col">STT</th>
-                                <th scope="col">Xe</th>
-                                <th scope="col">Biển số</th>
-                                <th scope="col">Khách hàng</th>
-                                <th scope="col">Thành tiền</th>
+                                <th scope="col" class="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-b">STT</th>
+                                <th scope="col" class="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-b">Tên khách hàng</th>
+                                <th scope="col" class="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-b">Tên xe</th>
+                                <th scope="col" class="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-b">Ngày nhận</th>
+                                <th scope="col" class="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-b">Ngày trả</th>
+                                <th scope="col" class="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-b">Tổng tiền</th>
                             </tr>
                         </thead>
                         <tbody>
                             @php
-                                $i = 0;
+                                $dem = 0;
                             @endphp
-                            @forelse ($giaoDichTodays as $giaoDichToday)
-                                <tr>
-                                    <th scope="row">{{ ++$i }}</th>
-                                    <td>{{ $giaoDichToday->xe->tenxe }}</td>
-                                    <td>{{ $giaoDichToday->xe->bienso }}</td>
-                                    <td>{{ $giaoDichToday->user->hoten }}</td>
-                                    <td>{{ number_format($giaoDichToday->tongtien) }} đồng</td>
+                            @forelse ($giaoDichs as $giaoDich)
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-3 border-b">{{ ++$dem }}</td>
+                                    <td class="px-4 py-3 border-b">{{ $giaoDich->user->hoten }}</td>
+                                    <td class="px-4 py-3 border-b">{{ $giaoDich->xe->tenxe }}</td>
+                                    <td class="px-4 py-3 border-b">{{ date('d/m/Y', strtotime($giaoDich->ngaynhanxe)) }}</td>
+                                    <td class="px-4 py-3 border-b">{{ date('d/m/Y', strtotime($giaoDich->ngaytraxe)) }}</td>
+                                    <td class="px-4 py-3 border-b">{{ number_format($giaoDich->tongtien) }} đồng</td>
                                 </tr>
                             @empty
-                                <tr class="text-center">
-                                    <td colspan="4">Không có dữ liệu</td>
+                                <tr>
+                                    <td colspan="6" class="px-4 py-8 text-center text-gray-500">Không có dữ liệu</td>
                                 </tr>
                             @endforelse
                         </tbody>
                     </table>
-                </div>
             </div>
         </div>
 
-        <div class="col-md-4 mt-4">
-            <div class="card rounded-lg border-0 shadow">
-                <div class="card-body">
-                    <h6 class="card-title text-center text-uppercase">Xe cho thuê nhiều</h6>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <div class="d-flex flex-row justify-content-between">
-                                <span>#No</span>
-                                <span>Tên xe</span>
-                                <span>Số lần</span>
-                            </div>
-                        </li>
+            <div class="bg-white rounded-lg shadow-lg border-0 p-6">
+                <h6 class="text-lg font-bold mb-4">Danh sách giao dịch chưa duyệt</h6>
+                <div class="overflow-x-auto">
+                    <table id="myTable2" class="min-w-full border border-gray-300">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th scope="col" class="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-b">STT</th>
+                                <th scope="col" class="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-b">Tên khách hàng</th>
+                                <th scope="col" class="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-b">Tên xe</th>
+                                <th scope="col" class="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-b">Tổng tiền</th>
+                                <th scope="col" class="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-b">Tùy chọn</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                         @php
-                            $j = 0;
+                                $dem2 = 0;
                         @endphp
-                        @forelse ($topXes as $topXe)
-                            <li class="list-group-item">
-                                <div class="d-flex flex-row justify-content-between">
-                                    <strong>{{ ++$j }}</strong>
-                                    <a href="{{ route('xe.show', $topXe->idxe) }}"
-                                        class="text-dark">{{ $topXe->tenxe }}</a>
-                                    <span>{{ $topXe->times }} <small>lần</small></span>
-                                </div>
-                            </li>
+                            @forelse ($giaoDichsChuaDuyet as $giaoDich)
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-3 border-b">{{ ++$dem2 }}</td>
+                                    <td class="px-4 py-3 border-b">{{ $giaoDich->user->hoten }}</td>
+                                    <td class="px-4 py-3 border-b">{{ $giaoDich->xe->tenxe }}</td>
+                                    <td class="px-4 py-3 border-b">{{ number_format($giaoDich->tongtien) }} đồng</td>
+                                    <td class="px-4 py-3 border-b">
+                                        <a href="{{ route('giaodich.edit', $giaoDich->idgiaodich) }}" 
+                                           class="text-primary hover:underline font-semibold">Duyệt</a>
+                                    </td>
+                                </tr>
                         @empty
-                            <li class="list-group-item">
-                                <div class="d-flex flex-row justify-content-center">
-                                    <span>Chưa có dữ liệu</span>
-                                </div>
-                            </li>
+                                <tr>
+                                    <td colspan="5" class="px-4 py-8 text-center text-gray-500">Không có dữ liệu</td>
+                                </tr>
                         @endforelse
-                    </ul>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

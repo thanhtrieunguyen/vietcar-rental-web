@@ -3,32 +3,30 @@
 @section('content')
     @include('admin.nav')
 
-    <div class="row mt-4">
-        <div class="col-12">
-            <div class="card rounded-lg border-0 shadow-sm">
-                <div class="card-body">
+    <div class="max-w-7xl mx-auto px-4 mt-6">
+        <div class="bg-white rounded-lg shadow-sm border-0 p-6">
                     @include('layouts.notification')
-                    <div class="d-flex flex-row justify-content-between align-items-center py-3">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 py-3 mb-4">
                         <div>
-                            <h5 class="card-title">Danh sách hoá đơn <span class="text-muted">({{ $hoaDons->count() }}
-                                    hoá đơn)</span></h5>
+                    <h5 class="text-xl font-bold">Danh sách hoá đơn <span class="text-gray-500 font-normal">({{ $hoaDons->count() }} hoá đơn)</span></h5>
                         </div>
                     </div>
-                    <table id="myTable" class="table table-bordered">
-                        <thead>
+            <div class="overflow-x-auto">
+                <table id="myTable" class="min-w-full border border-gray-300">
+                    <thead class="bg-gray-100">
                             <tr>
-                                <th scope="col">STT</th>
-                                <th scope="col">Xe</th>
-                                <th scope="col">Biển số</th>
-                                <th scope="col">Người thuê</th>
-                                <th scope="col">CCCD</th>
-                                <th scope="col">Ngày nhận xe</th>
-                                <th scope="col">Ngày trả xe</th>
-                                <th scope="col">Thành tiền</th>
-                                <th scope="col">Ngày thanh toán</th>
-                                <th scope="col">Tình trạng thanh toán</th>
-                                <th scope="col">Duyệt</th>
-                                <th scope="col" class="text-center">Tùy chọn</th>
+                            <th scope="col" class="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-b">STT</th>
+                            <th scope="col" class="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-b">Xe</th>
+                            <th scope="col" class="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-b">Biển số</th>
+                            <th scope="col" class="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-b">Người thuê</th>
+                            <th scope="col" class="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-b">CCCD</th>
+                            <th scope="col" class="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-b">Ngày nhận xe</th>
+                            <th scope="col" class="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-b">Ngày trả xe</th>
+                            <th scope="col" class="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-b">Thành tiền</th>
+                            <th scope="col" class="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-b">Ngày thanh toán</th>
+                            <th scope="col" class="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-b">Tình trạng thanh toán</th>
+                            <th scope="col" class="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-b">Duyệt</th>
+                            <th scope="col" class="px-4 py-3 text-center text-sm font-semibold text-gray-700 border-b">Tùy chọn</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,50 +34,50 @@
                                 $dem = 0;
                             @endphp
                             @forelse ($hoaDons as $hoaDon)
-                                <tr>
-                                    <th scope="row">{{ ++$dem }}</th>
-                                    <td>{{ $hoaDon->xe->tenxe }}</td>
-                                    <td>{{ $hoaDon->xe->bienso }}</td>
-                                    <td>{{ $hoaDon->user->hoten }}</td>
-                                    <td>{{ $hoaDon->user->cccd }}</td>
-                                    <td>{{ date('d/m/Y', strtotime($hoaDon->ngaynhanxe)) }}</td>
-                                    <td>{{ date('d/m/Y', strtotime($hoaDon->ngaytraxe)) }}</td>
-                                    <td>{{ number_format($hoaDon->tongtien) }} đồng</td>
-                                    {{-- @php
-
-                                        dd(date('d/m/Y', strtotime($hoaDon->ngaythanhtoan)) == '01/01/1970');
-                                    @endphp --}}
-                                    <td>{{ date('d/m/Y', strtotime($hoaDon->ngaythanhtoan)) == '01/01/1970' ? '01/01/1970' : date('d/m/Y', strtotime($hoaDon->ngaythanhtoan)) }}
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-4 py-3 border-b">{{ ++$dem }}</td>
+                                <td class="px-4 py-3 border-b">{{ $hoaDon->xe->tenxe }}</td>
+                                <td class="px-4 py-3 border-b">{{ $hoaDon->xe->bienso }}</td>
+                                <td class="px-4 py-3 border-b">{{ $hoaDon->user->hoten }}</td>
+                                <td class="px-4 py-3 border-b">{{ $hoaDon->user->cccd }}</td>
+                                <td class="px-4 py-3 border-b">{{ date('d/m/Y', strtotime($hoaDon->ngaynhanxe)) }}</td>
+                                <td class="px-4 py-3 border-b">{{ date('d/m/Y', strtotime($hoaDon->ngaytraxe)) }}</td>
+                                <td class="px-4 py-3 border-b">{{ number_format($hoaDon->tongtien) }} đồng</td>
+                                <td class="px-4 py-3 border-b">
+                                    {{ date('d/m/Y', strtotime($hoaDon->ngaythanhtoan)) == '01/01/1970' ? '01/01/1970' : date('d/m/Y', strtotime($hoaDon->ngaythanhtoan)) }}
+                                </td>
+                                <td class="px-4 py-3 border-b">
+                                    <span class="px-2 py-1 rounded-full text-xs font-semibold {{ $hoaDon->tinhtranghoadon == 0 ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800' }}">
+                                        {{ $hoaDon->tinhtranghoadon == 0 ? 'Chưa thanh toán' : 'Đã thanh toán' }}
+                                    </span>
                                     </td>
-                                    <td>{{ $hoaDon->tinhtranghoadon == 0 ? 'Chưa thanh toán' : 'Đã thanh toán' }}</td>
-                                    <td>
-                                        <div class="custom-control custom-checkbox">
+                                <td class="px-4 py-3 border-b">
+                                    <label class="flex items-center cursor-pointer">
                                             <input type="checkbox" {{ $hoaDon->tinhtranghoadon == 0 ? '' : 'checked' }}
                                                 hoadon-id="{{ $hoaDon->idhoadon }}"
-                                                class="custom-control-input js_checkbox_tinhtrang"
+                                            class="w-5 h-5 text-primary border-gray-300 rounded focus:ring-primary js_checkbox_tinhtrang"
                                                 id="checkBox_{{ $hoaDon->idhoadon }}">
-                                            <label class="custom-control-label"
-                                                for="checkBox_{{ $hoaDon->idhoadon }}"></label>
-                                        </div>
+                                    </label>
                                     </td>
-                                    <td class="text-center" style="display: flex; justify-content: center">
-                                        <a href="#" class="text-danger js_btn_xoa_hoa_don"
-                                            hoadon-id="{{ $hoaDon->idhoadon }}"><i class="fa fa-trash"></i>Xóa</a>
-                                        <form id="js_form_xoa_hoa_don_{{ $hoaDon->idhoadon }}"
-                                            action="{{ route('hoadon.destroy', $hoaDon->idhoadon) }}" method="POST">
+                                <td class="px-4 py-3 border-b text-center">
+                                    <div class="flex items-center justify-center">
+                                        <a href="#" class="text-red-500 hover:underline font-semibold js_btn_xoa_hoa_don" hoadon-id="{{ $hoaDon->idhoadon }}">
+                                            <i class="fa fa-trash"></i> Xóa
+                                        </a>
+                                        <form id="js_form_xoa_hoa_don_{{ $hoaDon->idhoadon }}" action="{{ route('hoadon.destroy', $hoaDon->idhoadon) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                         </form>
+                                    </div>
                                     </td>
                                 </tr>
                             @empty
-                                <tr class="text-center">
-                                    <td colspan="9">Không có dữ liệu</td>
+                            <tr>
+                                <td colspan="12" class="px-4 py-8 text-center text-gray-500">Không có dữ liệu</td>
                                 </tr>
                             @endforelse
                         </tbody>
                     </table>
-                </div>
             </div>
         </div>
     </div>

@@ -2,113 +2,117 @@
 
 @section('content')
     @include('admin.nav')
-
-    <div class="row mt-4">
-        <div class="col-8 offset-2">
-            <div class="card rounded-lg border-0 shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex flex-row justify-content-between align-items-center py-3">
+    <div class="max-w-7xl mx-auto px-4 mt-6">
+        <div class="flex justify-center">
+            <div class="w-full max-w-4xl">
+                <div class="bg-white rounded-lg shadow-sm border-0 p-6">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 py-3 mb-4">
                         <div>
-                            <h5 class="card-title">Thêm khách hàng</h5>
+                            <h5 class="text-xl font-bold">Thêm khách hàng</h5>
                         </div>
                         <div>
-                            <a href="{{ route('user.index') }}" class="btn btn-outline-info"><i class="fas fa-list-ul"></i>
-                                Danh sách</a>
+                            <a href="{{ route('user.index') }}" class="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg font-semibold hover:bg-blue-200 transition-colors flex items-center gap-2">
+                                <i class="fas fa-list-ul"></i> Danh sách
+                            </a>
                         </div>
                     </div>
                     @include('layouts.notification')
                     <form action="{{ route('user.store') }}" class="mb-3" method="POST">
                         @csrf
-                        <div class="form-group">
-                            <label for="email"><strong style="font-weight: 600">Email</strong><strong
-                                    style="font-weight: 600" class="important" aria-label="Required">(*)</strong></label>
-                            <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
+                        <div class="mb-4">
+                            <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">
+                                Email<strong class="text-red-500">(*)</strong>
+                            </label>
+                            <input type="email" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary {{ $errors->has('email') ? 'border-red-500' : 'border-gray-300' }}"
                                 id="email" name="email" placeholder="Nhập email" required value="{{ old('email') }}">
-                            <small class="form-text text-muted">Mật khẩu mặc định là 12346</small>
-
+                            <small class="text-sm text-gray-500 mt-1 block">Mật khẩu mặc định là 12346</small>
                             @if ($errors->has('email'))
-                                <span class="invalid-feedback" role="alert">
+                                <span class="text-red-500 text-sm mt-1 block" role="alert">
                                     <strong>{{ $errors->first('email') }}</strong>
                                 </span>
                             @endif
                         </div>
-                        <div class="form-row my-3">
-                            <div class="col-md-6">
-                                <label for="hoTen"><strong style="font-weight: 600">Họ tên</strong><strong
-                                        style="font-weight: 600" class="important"
-                                        aria-label="Required">(*)</strong></label>
-                                <input type="text" class="form-control{{ $errors->has('hoten') ? ' is-invalid' : '' }}"
-                                    id="hoTen" name="hoten" placeholder="Nhập họ tên" required
-                                    value="{{ old('hoten') }}">
-
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label for="hoTen" class="block text-sm font-semibold text-gray-700 mb-2">
+                                    Họ tên<strong class="text-red-500">(*)</strong>
+                                </label>
+                                <input type="text" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary {{ $errors->has('hoten') ? 'border-red-500' : 'border-gray-300' }}"
+                                    id="hoTen" name="hoten" placeholder="Nhập họ tên" required value="{{ old('hoten') }}">
                                 @if ($errors->has('hoten'))
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="text-red-500 text-sm mt-1 block" role="alert">
                                         <strong>{{ $errors->first('hoten') }}</strong>
                                     </span>
                                 @endif
                             </div>
-                            <div class="col-md-6">
-                                <label for="cccd"><strong style="font-weight: 600">Căn cước công dân</strong><strong
-                                        style="font-weight: 600" class="important"
-                                        aria-label="Required">(*)</strong></label>
-                                <input type="text"
-                                    class="w-50 mr-3 form-control{{ $errors->has('cccd') ? ' is-invalid' : '' }}"
-                                    id="cccd" name="cccd" placeholder="Nhập CCCD" required
-                                    value="{{ old('cccd') }}" style="display:inline" oninput="formatNumber(this)">
-                                <small class="text-muted">Phải có
-                                    12 số.</small>
-
+                            <div>
+                                <label for="cccd" class="block text-sm font-semibold text-gray-700 mb-2">
+                                    Căn cước công dân<strong class="text-red-500">(*)</strong>
+                                </label>
+                                <div class="flex items-center gap-2">
+                                    <input type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary {{ $errors->has('cccd') ? 'border-red-500' : 'border-gray-300' }}"
+                                        id="cccd" name="cccd" placeholder="Nhập CCCD" required value="{{ old('cccd') }}" oninput="formatNumber(this)">
+                                    <small class="text-sm text-gray-500 whitespace-nowrap">Phải có 12 số.</small>
+                                </div>
                                 @if ($errors->has('cccd'))
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="text-red-500 text-sm mt-1 block" role="alert">
                                         <strong>{{ $errors->first('cccd') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
-                        <div class="form-row my-3">
-                            <div class="col-md-6">
-                                <label for="ngaySinh"><strong style="font-weight: 600">Ngày sinh</strong><strong
-                                        style="font-weight: 600" class="important"
-                                        aria-label="Required">(*)</strong></label>
-                                <input type="date" class="form-control" id="ngaySinh" name="ngaysinh"
-                                    placeholder="Chọn ngày sinh" required value="{{ old('ngaysinh') }}">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label for="ngaySinh" class="block text-sm font-semibold text-gray-700 mb-2">
+                                    Ngày sinh<strong class="text-red-500">(*)</strong>
+                                </label>
+                                <input type="date" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" 
+                                    id="ngaySinh" name="ngaysinh" placeholder="Chọn ngày sinh" required value="{{ old('ngaysinh') }}">
                             </div>
-                            <div class="col-md-6">
-                                <label for="soDienThoai"><strong style="font-weight: 600">Số điện thoại </strong><strong
-                                        style="font-weight: 600" class="important"
-                                        aria-label="Required">(*)</strong></label>
-                                <input type="text"
-                                    class="w-50 mr-3 form-control{{ $errors->has('sdt') ? ' is-invalid' : '' }}"
-                                    id="soDienThoai" name="sdt" placeholder="Nhập số điện thoại" required
-                                    value="{{ old('sdt') }}" style="display:inline" oninput="formatNumber(this)">
-                                <small class="text-muted">Phải có 10 số.</small>
-
+                            <div>
+                                <label for="soDienThoai" class="block text-sm font-semibold text-gray-700 mb-2">
+                                    Số điện thoại<strong class="text-red-500">(*)</strong>
+                                </label>
+                                <div class="flex items-center gap-2">
+                                    <input type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary {{ $errors->has('sdt') ? 'border-red-500' : 'border-gray-300' }}"
+                                        id="soDienThoai" name="sdt" placeholder="Nhập số điện thoại" required value="{{ old('sdt') }}" oninput="formatNumber(this)">
+                                    <small class="text-sm text-gray-500 whitespace-nowrap">Phải có 10 số.</small>
+                                </div>
                                 @if ($errors->has('sdt'))
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="text-red-500 text-sm mt-1 block" role="alert">
                                         <strong>{{ $errors->first('sdt') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="diaChi">Địa chỉ</label>
-                            <textarea type="text" class="form-control{{ $errors->has('diachi') ? ' is-invalid' : '' }}" id="diaChi"
-                                name="diachi" rows="2" placeholder="Nhập địa chỉ">{{ old('diachi') }}</textarea>
-
+                        <div class="mb-4">
+                            <label for="diaChi" class="block text-sm font-semibold text-gray-700 mb-2">Địa chỉ</label>
+                            <textarea class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary {{ $errors->has('diachi') ? 'border-red-500' : 'border-gray-300' }}" 
+                                id="diaChi" name="diachi" rows="2" placeholder="Nhập địa chỉ">{{ old('diachi') }}</textarea>
                             @if ($errors->has('diachi'))
-                                <span class="invalid-feedback" role="alert">
+                                <span class="text-red-500 text-sm mt-1 block" role="alert">
                                     <strong>{{ $errors->first('diachi') }}</strong>
                                 </span>
                             @endif
                         </div>
-                        <div class="d-flex flex-row justify-content-end">
-                            <button type="reset" class="btn btn-secondary mr-3"><i class="fas fa-sync-alt"></i> Làm
-                                mới</button>
-                            <button type="submit" class="btn btn-success"><i class="fas fa-plus"></i> Thêm</button>
+                        <div class="flex justify-end gap-3">
+                            <button type="reset" class="px-6 py-2 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition-colors flex items-center gap-2">
+                                <i class="fas fa-sync-alt"></i> Làm mới
+                            </button>
+                            <button type="submit" class="px-6 py-2 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors flex items-center gap-2">
+                                <i class="fas fa-plus"></i> Thêm
+                            </button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        function formatNumber(input) {
+            var value = input.value.replace(/[^0-9]/g, '');
+            input.value = value;
+        }
+    </script>
 @endsection
