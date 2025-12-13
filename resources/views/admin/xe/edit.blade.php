@@ -31,7 +31,7 @@
                                     <option selected disabled>Chọn dòng xe</option>
                                     @foreach ($dongXe as $dongXe)
                                         <option value="{{ $dongXe->iddongxe }}"
-                                            {{ $xe->iddongxe == $dongXe->iddongxe ? 'selected' : '' }}>
+                                            {{ (old('iddongxe') ?? $xe->iddongxe) == $dongXe->iddongxe ? 'selected' : '' }}>
                                             {{ $dongXe->tendongxe }}</option>
                                     @endforeach
                                 </select>
@@ -52,7 +52,7 @@
                                     <option selected disabled>Chọn hãng xe</option>
                                     @foreach ($hangXe as $hangXe)
                                         <option value="{{ $hangXe->idhangxe }}"
-                                            {{ $xe->idhangxe == $hangXe->idhangxe ? 'selected' : '' }}>
+                                            {{ (old('idhangxe') ?? $xe->idhangxe) == $hangXe->idhangxe ? 'selected' : '' }}>
                                             {{ $hangXe->tenhangxe }}</option>
                                     @endforeach
                                 </select>
@@ -70,7 +70,7 @@
                                         aria-label="Required">(*)</strong>
                                 </label>
                                 <input type="text" class="form-control{{ $errors->has('tenxe') ? ' is-invalid' : '' }}"
-                                    id="tenXe" name="tenxe" placeholder="Nhập tên xe" value="{{ $xe->tenxe }}">
+                                    id="tenXe" name="tenxe" placeholder="Nhập tên xe" value="{{ old('tenxe', $xe->tenxe) }}">
 
                                 @if ($errors->has('tenxe'))
                                     <span class="invalid-feedback" role="alert">
@@ -88,7 +88,7 @@
                                 </label>
                                 <input type="text" class="form-control{{ $errors->has('bienso') ? ' is-invalid' : '' }}"
                                     id="bienSo" name="bienso" placeholder="Nhập biển số xe"
-                                    value="{{ $xe->bienso }}">
+                                    value="{{ old('bienso', $xe->bienso) }}">
 
                                 @if ($errors->any())
                                     <span class="invalid-feedback" role="alert">
@@ -102,7 +102,7 @@
                                         aria-label="Required">(*)</strong>
                                 </label>
                                 <input type="text" class="form-control{{ $errors->has('gia') ? ' is-invalid' : '' }}"
-                                    id="gia" name="gia" placeholder="Nhập giá thuê" value="{{ $xe->gia }}"
+                                    id="gia" name="gia" placeholder="Nhập giá thuê" value="{{ old('gia', $xe->gia) }}"
                                     oninput="formatCurrency(this)">
 
                                 @if ($errors->has('gia'))
@@ -118,9 +118,9 @@
                                 <label for="truyenDong">Truyền động</label>
                                 <select class="form-control" name="truyendong" id="truyenDong">
                                     <option selected disabled>Chọn truyền động xe</option>
-                                    <option value="Số tự động" {{ $xe->truyendong == 'Số tự động' ? 'selected' : '' }}>Số
+                                    <option value="Số tự động" {{ (old('truyendong') ?? $xe->truyendong) == 'Số tự động' ? 'selected' : '' }}>Số
                                         tự động</option>
-                                    <option value="Số sàn" {{ $xe->truyendong == 'Số sàn' ? 'selected' : '' }}>Số sàn
+                                    <option value="Số sàn" {{ (old('truyendong') ?? $xe->truyendong) == 'Số sàn' ? 'selected' : '' }}>Số sàn
                                     </option>
                                 </select>
                             </div>
@@ -128,9 +128,9 @@
                                 <label for="nhienLieu">Nhiên liệu</label>
                                 <select class="form-control" name="nhienlieu" id="nhienLieu">
                                     <option selected disabled>Chọn nhiên liệu xe</option>
-                                    <option value="Xăng" {{ $xe->nhienlieu == 'Xăng' ? 'selected' : '' }}>Xăng</option>
-                                    <option value="Điện" {{ $xe->nhienlieu == 'Điện' ? 'selected' : '' }}>Điện</option>
-                                    <option value="Dầu" {{ $xe->nhienlieu == 'Dầu' ? 'selected' : '' }}>Dầu</option>
+                                    <option value="Xăng" {{ (old('nhienlieu') ?? $xe->nhienlieu) == 'Xăng' ? 'selected' : '' }}>Xăng</option>
+                                    <option value="Điện" {{ (old('nhienlieu') ?? $xe->nhienlieu) == 'Điện' ? 'selected' : '' }}>Điện</option>
+                                    <option value="Dầu" {{ (old('nhienlieu') ?? $xe->nhienlieu) == 'Dầu' ? 'selected' : '' }}>Dầu</option>
 
                                 </select>
 
@@ -140,7 +140,7 @@
                                 <input type="text"
                                     class="form-control{{ $errors->has('nhienlieutieuhao_km') ? ' is-invalid' : '' }}"
                                     id="nhienlieutieuhao_km" name="nhienlieutieuhao_km"
-                                    placeholder="Nhập nhiên liệu tiêu hao" value="{{ $xe->nhienlieutieuhao_km }}">
+                                    placeholder="Nhập nhiên liệu tiêu hao" value="{{ old('nhienlieutieuhao_km', $xe->nhienlieutieuhao_km) }}">
                             </div>
                         </div>
 
@@ -157,7 +157,7 @@
                                 // dd($description_with_br);
                             @endphp
                             <textarea class="form-control{{ $errors->has('mieuta') ? ' is-invalid' : '' }}" name="mieuta" id="mieuTa"
-                                rows="3" placeholder="Nhập miêu tả">{{ $des }}</textarea>
+                                rows="3" placeholder="Nhập miêu tả">{{ old('mieuta') ?? $des }}</textarea>
 
                             @if ($errors->has('mieuta'))
                                 <span class="invalid-feedback" role="alert">

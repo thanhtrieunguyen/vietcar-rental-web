@@ -25,21 +25,16 @@ class StoreRequest extends FormRequest
             'iddongxe' => 'required',
             'idhangxe' => 'required',
             'gia' => 'required',
-            'tenxe' => 'min:3|max:255',
+            'tenxe' => 'required|min:3|max:255',
             'bienso' => [
                 'required',
                 'min:8',
                 'max:8',
                 'regex:/^\d{2}[A-Za-z]\d{5}$/',
-                function ($attribute, $value, $fail) {
-                    if (!preg_match('/^\d{2}[A-Za-z]\d{5}$/', $value)) {
-                        $fail('Bạn nhập sai định dạng');
-                    }
-                }
             ],
-            'hinhxe' => 'required',
+            'hinhxe' => 'required|array',
             'hinhxe.*' => 'required|file|mimes:jpeg,png,jpg,gif|max:2048',
-            'nhienlieutieuhao_km' => 'max:5'
+            'nhienlieutieuhao_km' => 'nullable|max:5'
         ];
     }
 
@@ -57,7 +52,6 @@ class StoreRequest extends FormRequest
             'bienso.max' => 'Biển số xe nhiều nhất :max ký tự',
             'bienso.regex' => 'Biển số xe không đúng định dạng (Vd:20H12345)',
             'hinhxe.required' => 'Chưa chọn hình',
-            'hinhxe.*.required' => 'Chưa chọn hình',
             'hinhxe.*.image' => 'File tải lên phải là hình ảnh',
             'hinhxe.*.mimes' => 'Hình ảnh phải có định dạng jpeg, png, jpg hoặc gif',
             'hinhxe.*.max' => 'Kích thước hình ảnh tối đa là 2048 KB',

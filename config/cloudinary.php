@@ -32,12 +32,12 @@ return [
     'upload_preset' => env('CLOUDINARY_UPLOAD_PRESET'),
 
     /**
-     * Route to get cloud_image_url from Blade Upload Widget
+     * Route to get cloud_image_url from Blade Upload Widget (Disabled)
      */
-    'upload_route' => env('CLOUDINARY_UPLOAD_ROUTE'),
+    // 'upload_route' => env('CLOUDINARY_UPLOAD_ROUTE'),
 
     /**
-     * Controller action to get cloud_image_url from Blade Upload Widget
+     * Controller action to get cloud_image_url from Blade Upload Widget (Disabled)
      */
-    'upload_action' => env('CLOUDINARY_UPLOAD_ACTION'),
+    // 'upload_action' => env('CLOUDINARY_UPLOAD_ACTION'),
 ];

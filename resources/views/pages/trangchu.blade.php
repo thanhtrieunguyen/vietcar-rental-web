@@ -58,14 +58,7 @@
             @foreach ($xes as $xe)
                 @php
                     $array = json_decode($xe->hinhxe->hinhxe);
-                    $img1 = null;
-                    foreach ($array as $imagePath) {
-                        $imageSize = getimagesize($imagePath);
-                        if ($imageSize !== false && $imageSize[0] <= 1440 && $imageSize[1] <= 1080) {
-                            $img1 = $imagePath;
-                            break;
-                        }
-                    }
+                    $img1 = isset($array[0]) ? $array[0] : null;
                 @endphp
                 <li>
                     <div class="product-item">
@@ -82,8 +75,6 @@
                                         style="width: 100%; height:190px ">
                                 </a>
                             </div>
-                            <a class="rent-now">Thuê Xe</a>
-                            <!-- xem xe chi tiet -->
                         </div>
                         <div class="product-info">
                             <div class="group-tag">

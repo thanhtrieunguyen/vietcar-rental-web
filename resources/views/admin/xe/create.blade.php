@@ -27,7 +27,7 @@
                                     name="iddongxe" id="dongXe" onchange="hideErrorAndClass()">
                                     <option selected disabled>Chọn dòng xe</option>
                                     @foreach ($dongXe as $dongXe)
-                                        <option value="{{ $dongXe->iddongxe }}">{{ $dongXe->tendongxe }}</option>
+                                        <option value="{{ $dongXe->iddongxe }}" {{ old('iddongxe') == $dongXe->iddongxe ? 'selected' : '' }}>{{ $dongXe->tendongxe }}</option>
                                     @endforeach
                                 </select>
 
@@ -46,7 +46,7 @@
                                     name="idhangxe" id="hangXe" onchange="hideErrorAndClass()">
                                     <option selected disabled>Chọn hãng xe</option>
                                     @foreach ($hangXe as $hangXe)
-                                        <option value="{{ $hangXe->idhangxe }}">{{ $hangXe->tenhangxe }}</option>
+                                        <option value="{{ $hangXe->idhangxe }}" {{ old('idhangxe') == $hangXe->idhangxe ? 'selected' : '' }}>{{ $hangXe->tenhangxe }}</option>
                                     @endforeach
                                 </select>
 
@@ -112,20 +112,18 @@
                                 <label for="truyenDong"><strong style="font-weight: 600">Truyền động</strong></label>
                                 <select class="form-control" name="truyendong" id="truyenDong">
                                     <option selected disabled>Chọn truyền động xe</option>
-                                    <option value="Số tự động">Số tự động</option>
-                                    <option value="Số sàn">Số sàn</option>
+                                    <option value="Số tự động" {{ old('truyendong') == 'Số tự động' ? 'selected' : '' }}>Số tự động</option>
+                                    <option value="Số sàn" {{ old('truyendong') == 'Số sàn' ? 'selected' : '' }}>Số sàn</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="nhienLieu"><strong style="font-weight: 600">Nhiên liệu</strong></label>
                                 <select class="form-control" name="nhienlieu" id="nhienLieu">
                                     <option selected disabled>Chọn nhiên liệu xe</option>
-                                    <option value="Xăng">Xăng</option>
-                                    <option value="Điện">Điện</option>
-                                    <option value="Dầu">Dầu</option>
-
+                                    <option value="Xăng" {{ old('nhienlieu') == 'Xăng' ? 'selected' : '' }}>Xăng</option>
+                                    <option value="Điện" {{ old('nhienlieu') == 'Điện' ? 'selected' : '' }}>Điện</option>
+                                    <option value="Dầu" {{ old('nhienlieu') == 'Dầu' ? 'selected' : '' }}>Dầu</option>
                                 </select>
-
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="nhienlieutieuhao_km"><strong style="font-weight: 600">Nhiên liệu tiêu hao
@@ -146,7 +144,7 @@
                         <div class="form-group">
                             <span><strong style="font-weight: 600">Miêu tả</strong></span>
                             <textarea class="form-control{{ $errors->has('mieuta') ? ' is-invalid' : '' }}" name="mieuta" id="moTa"
-                                rows="3" placeholder="Nhập miêu tả"></textarea>
+                                rows="3" placeholder="Nhập miêu tả">{{ old('mieuta') }}</textarea>
                         </div>
                         <div class="d-flex flex-row justify-content-between align-items-center">
                             <div class="form-group">
@@ -154,7 +152,9 @@
                                         class="important" aria-label="Required">(*)</strong>
                                 </label>
                                 <input type="file" class="form-control-file imagefet" id="inputHinh" name="hinhxe[]"
-                                    multiple>
+                                    multiple accept=".jpg,.jpeg,.png"
+                                    aria-describedby="fileHelp">
+                                <p class="text-muted mb-2">Chọn hình cho xe (Các định dạng được hỗ trợ: .jpg, .jpeg, .png). Kích thước hình tối đa 2MB mỗi hình.</p>
 
                                 <strong class="text-danger">{{ $errors->first('hinhxe') }}</strong>
                                 <div class="btn-reset">

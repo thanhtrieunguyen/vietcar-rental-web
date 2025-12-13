@@ -21,11 +21,11 @@ class XeController extends Controller
     public function __construct()
     {
         $this->middleware('admin')->except('show', 'filter');
+    }
 
-        function convertToEscapedNewlines($text)
-        {
-            return str_replace("\n", '\n', $text);
-        }
+    private function convertToEscapedNewlines($text)
+    {
+        return str_replace("\n", '\n', $text);
     }
 
     public function index()
@@ -45,36 +45,32 @@ class XeController extends Controller
 
     public function store(StoreRequest $request)
     {
+        try {
+            $hinhXes = [];
+            foreach ($request->file('hinhxe') as $hinh) {
+                $uploadResult = Cloudinary::upload($hinh->getRealPath(), ['folder' => 'Cars']);
+                array_push($hinhXes, $uploadResult->getSecurePath());
+            }
+            $hinhXeJsonString = json_encode($hinhXes);
+            $hinhXe = HinhXe::create(['hinhxe' => $hinhXeJsonString]);
 
-        // $string1 = '["https:\/\/res.cloudinary.com\/dr3b2kgb1\/image\/upload\/v1707563147\/f3wwo5kxddbtqgnhjpbv.png"]';
-        // $array = json_decode($string1, true);
+            $idhinhxe = $hinhXe->idhinhxe;
 
-        $hinhXes = [];
-        foreach ($request->file('hinhxe') as $hinh) {
+            $xeData = $request->except('hinhxe');
+            $xeData['idhinhxe'] = $idhinhxe;
 
-            $uploadedFileUrl = cloudinary()->upload($hinh->getRealPath(), ['folder' => 'Cars'])->getSecurePath();
+            $newgia = str_replace(',', '', $request->gia);
+            $xeData['gia'] = $newgia;
 
-            array_push($hinhXes, $uploadedFileUrl);
-            // Store the secure URL in your array
+            $xeData['mieuta'] = $this->convertToEscapedNewlines($request->mieuta);
+
+            $xe = Xe::create($xeData);
+
+            return back()->with(['thong-bao' => 'Thêm xe ' . $xe->tenxe . ' thành công!', 'type' => 'success']);
+        } catch (\Exception $e) {
+            \Log::error('Lỗi thêm xe: ' . $e->getMessage());
+            return back()->withErrors(['error' => 'Có lỗi xảy ra: ' . $e->getMessage()])->withInput();
         }
-        $hinhXeJsonString = json_encode($hinhXes);
-        $hinhXe = HinhXe::create(['hinhxe' => $hinhXeJsonString]);
-
-        $idhinhxe = $hinhXe->idhinhxe;
-
-        $xeData = $request->except('hinhxe');
-        $xeData['idhinhxe'] = $idhinhxe;
-
-        $newgia = str_replace(',', '', $request->gia);
-        $xeData['gia'] = $newgia;
-
-        $xeData['mieuta'] = convertToEscapedNewlines($request->mieuta);
-
-
-        $xe = Xe::create($xeData);
-
-        return back()->with(['thong-bao' => 'Thêm xe ' . $xe->tenxe . ' thành công!', 'type' => 'success'])
-        ;
     }
 
     public function edit($id)
@@ -112,8 +108,8 @@ class XeController extends Controller
 
                 if ($hinh->isValid()) {
                     // upload tệp tin lên Cloudinary
-                    $uploadedFileUrl = cloudinary()->upload($hinh->getRealPath())->getSecurePath();
-                    array_push($hinhXes, $uploadedFileUrl);
+                    $uploadResult = Cloudinary::upload($hinh->getRealPath(), ['folder' => 'Cars']);
+                    array_push($hinhXes, $uploadResult->getSecurePath());
                 }
             }
             $newImageUrls = array_merge($oldImageUrls, $hinhXes);
@@ -129,14 +125,14 @@ class XeController extends Controller
             $newgia = str_replace(',', '', $request->gia);
             $xeData['gia'] = $newgia;
 
-            $xeData['mieuta'] = convertToEscapedNewlines($request->mieuta);
+            $xeData['mieuta'] = $this->convertToEscapedNewlines($request->mieuta);
             unset($xeData['xoa_hinh']);
 
             $xe->update($xeData);
         } else {
             $newgia = str_replace(',', '', $request->gia);
             $data['gia'] = $newgia;
-            $data['mieuta'] = convertToEscapedNewlines($request->mieuta);
+            $data['mieuta'] = $this->convertToEscapedNewlines($request->mieuta);
 
             unset($data['xoa_hinh']);
 
