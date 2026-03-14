@@ -325,7 +325,7 @@ Trân trọng cảm ơn, chúc quý khách hàng có những chuyến đi tuyệ
                 <div class="sticky top-24">
                     <div class="p-6 bg-blue-50 border border-gray-100 rounded-xl mb-6" id="cardetail">
                         <div class="mb-4">
-                            <h4 class="text-2xl font-extrabold">{{ number_format($xe->gia) }}K/ngày</h4>
+                            <h4 class="text-2xl font-extrabold">{{ number_format($xe->gia) }}đ/ngày</h4>
                         </div>
                         <div class="border border-gray-200 rounded-xl bg-white mb-3">
                             <div class="p-3 flex flex-col gap-2 cursor-pointer">

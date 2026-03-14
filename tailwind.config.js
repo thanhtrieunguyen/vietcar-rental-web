@@ -14,8 +14,8 @@ export default {
                 },
             },
             fontFamily: {
-                'manrope': ['Manrope', 'sans-serif'],
-                'roboto': ['Roboto', 'sans-serif'],
+                'sans': ['Inter', 'sans-serif'],
+                'display': ['Outfit', 'sans-serif'],
             },
         },
     },

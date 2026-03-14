@@ -150,28 +150,51 @@
         </div>
     </div>
 
+    <style>
+        .tab-pane {
+            display: none;
+        }
+        .tab-pane.active {
+            display: block;
+        }
+        .fade {
+            transition: opacity 0.15s linear;
+        }
+        .fade:not(.show) {
+            opacity: 0;
+        }
+    </style>
+
     <script>
-        // Tab switching functionality
         document.querySelectorAll('[data-toggle="pill"]').forEach(tab => {
             tab.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
                 
-                // Hide all tab panes
+                // Ẩn tất cả tab panes
                 document.querySelectorAll('.tab-pane').forEach(pane => {
                     pane.classList.remove('show', 'active');
+                    pane.classList.add('hidden');
                 });
                 
-                // Remove active from all tabs
+                // Xóa trạng thái active của tất cả các links
                 document.querySelectorAll('.tab-link').forEach(link => {
                     link.classList.remove('active', 'border-primary', 'text-primary');
                     link.classList.add('border-transparent', 'text-gray-600');
                 });
                 
-                // Show target pane
-                document.querySelector(targetId).classList.add('show', 'active');
+                // Hiển thị tab pane mục tiêu
+                const targetPane = document.querySelector(targetId);
+                if (targetPane) {
+                    targetPane.classList.remove('hidden');
+                    targetPane.classList.add('active');
+                    // Sử dụng setTimeout để tạo hiệu ứng fade
+                    setTimeout(() => {
+                        targetPane.classList.add('show');
+                    }, 10);
+                }
                 
-                // Activate clicked tab
+                // Kích hoạt link đã nhấn
                 this.classList.add('active', 'border-primary', 'text-primary');
                 this.classList.remove('border-transparent', 'text-gray-600');
             });

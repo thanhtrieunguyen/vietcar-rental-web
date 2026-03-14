@@ -9,8 +9,8 @@ class CheckOutController extends Controller
 {
     public function initPayment(Request $request)
     {
-        $vnp_TmnCode = "Q9B60MZQ"; // Mã website
-        $vnp_HashSecret = "INEZCVWNMKJNBTSSYUUVTUYYRKOVQNVV"; // Chuỗi bí mật
+        $vnp_TmnCode = "2GCEVUGD"; // Mã website
+        $vnp_HashSecret = "5EQIXXLIT5P2UNW2YJ07TMSDWB44PDAL"; // Chuỗi bí mật
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html"; // URL thanh toán
         $vnp_Returnurl = route('vnpay.return'); // URL trả về
 
@@ -62,7 +62,7 @@ class CheckOutController extends Controller
 
     public function handlePaymentReturn(Request $request)
     {
-        $vnp_HashSecret = "INEZCVWNMKJNBTSSYUUVTUYYRKOVQNVV"; // Chuỗi bí mật
+        $vnp_HashSecret = "5EQIXXLIT5P2UNW2YJ07TMSDWB44PDAL"; // Chuỗi bí mật
 
         $inputData = $request->all();
         $vnp_SecureHash = $inputData['vnp_SecureHash'];
@@ -95,14 +95,14 @@ class CheckOutController extends Controller
                     $hoadon->ngaythanhtoan = now(); // Cập nhật ngày thanh toán
                     $hoadon->save();
                 }
-
-                return redirect()->route('success', ['message' => 'Thanh toán thành công']);
+// Undefined variable $hoaDon? -> 
+                return redirect()->route('success', ['message' => 'Thanh toán thành công'])->with('hoaDon', $hoadon);
             } else {
                 // Thanh toán thất bại
-                return redirect()->route('failed', ['message' => 'Thanh toán thất bại']);
+                return redirect()->route('failed', ['message' => 'Thanh toán thất bại'])->with('hoaDon', $hoadon);
             }
         } else {
-            return redirect()->route('failed', ['message' => 'Chữ ký không hợp lệ']);
+            return redirect()->route('failed', ['message' => 'Chữ ký không hợp lệ'])->with('hoaDon', $hoadon);
         }
     }
 }

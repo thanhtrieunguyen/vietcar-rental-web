@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="css/dataTables.bootstrap4.min.css">
 </head>
 
-<body class="font-manrope" id="page-top">
+<body class="bg-white" id="page-top">
     @include('layouts.header')
     <div class="container mx-auto px-4 py-4" style="min-height: calc(100vh - 166px); margin-top: 56px">
         @yield('content')
@@ -51,7 +51,7 @@
     <script>
         $(document).ready(function() {
             //Lên đầu trang
-            $('[data-toggle="tooltip"]').tooltip();
+            // $('[data-toggle="tooltip"]').tooltip();
             $("a[href='#page-top']").on("click", function(event) {
                 event.preventDefault();
                 var hash = this.hash;
