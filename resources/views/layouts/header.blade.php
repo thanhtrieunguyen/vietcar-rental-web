@@ -1,4 +1,4 @@
-<nav id="site-header" class="bg-white fixed top-0 left-0 right-0 z-50 shadow-sm transition-transform duration-300">
+<nav class="bg-white fixed top-0 left-0 right-0 z-50 shadow-sm border-b border-gray-100">
     <div class="max-w-7xl mx-auto px-4">
         <div class="flex items-center justify-between h-16">
             <a class="flex items-center" href="/">
@@ -12,11 +12,13 @@
         </button>
 
             <div class="hidden md:flex md:items-center md:space-x-4 flex-1 justify-end" id="myNavbar">
-                <form action="{{ route('pages.timkiem') }}" class="flex items-center space-x-2 mr-4">
-                    <input class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent w-48" 
-                           type="search" placeholder="Tìm kiếm xe..." name="q" id="search" value="{{ old('search') }}">
-                    <button class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors" type="submit">Tìm kiếm</button>
-            </form>
+                <form action="{{ route('pages.timkiem') }}" class="flex items-center relative flex-1 max-w-md mx-4">
+                    <div class="absolute left-3 text-gray-400">
+                        <i class="ti-search"></i>
+                    </div>
+                    <input class="pl-10 pr-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent w-full bg-gray-50" 
+                           type="text" placeholder="Tìm kiếm xe..." name="q" id="search" value="{{ request('q') }}">
+                </form>
                 
                 <div class="flex items-center space-x-4">
                     <a class="text-black font-bold text-sm px-4 py-3 hover:text-primary transition-colors" href="/">Trang chủ</a>
@@ -47,9 +49,12 @@
         <!-- Mobile menu -->
         <div class="hidden md:hidden" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1">
-                <form action="{{ route('pages.timkiem') }}" class="mb-4">
-                    <input class="w-full px-3 py-2 border border-gray-300 rounded-md mb-2" type="search" placeholder="Tìm kiếm xe..." name="q" value="{{ old('search') }}">
-                    <button class="w-full px-4 py-2 bg-primary text-white rounded-md" type="submit">Tìm kiếm</button>
+                <form action="{{ route('pages.timkiem') }}" class="mb-4 relative">
+                    <div class="absolute left-3 top-2.5 text-gray-400">
+                        <i class="ti-search"></i>
+                    </div>
+                    <input type="text" name="q" value="{{ request('q') }}" placeholder="Bạn muốn đi đâu?"
+                    class="pl-10 pr-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent w-full bg-gray-50 text-sm">
                 </form>
                 <a class="block text-black font-bold px-3 py-2 hover:bg-gray-100 rounded-md" href="/">Trang chủ</a>
                 <a class="block text-black font-bold px-3 py-2 hover:bg-gray-100 rounded-md" href="{{ route('pages.about') }}">Về VietCar</a>

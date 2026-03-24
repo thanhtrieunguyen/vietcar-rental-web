@@ -235,6 +235,11 @@ class XeController extends Controller
             $xes->where('idhangxe', $hangXeId);
         }
 
+        if ($request->has('q')) {
+            $query = $request->query('q');
+            $xes->where('tenxe', 'LIKE', '%' . $query . '%');
+        }
+
         $xes = $xes->paginate(10);
 
         // Trả về view với danh sách xe đã lọc

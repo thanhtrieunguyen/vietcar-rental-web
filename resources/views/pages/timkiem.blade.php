@@ -5,50 +5,56 @@
     <link rel="icon" type="image/x-icon" href="upload/slides/car.png">
 </head>
 @section('content')
-    <div class="max-w-7xl mx-auto px-4 mt-4 mb-4">
-        <h3 class="text-center text-lg md:text-xl mb-4">
-            Tìm kiếm với từ khóa: <small class="text-gray-600">{{ $query == null ? 'trống' : $query }} ({{ $xes->count() }} kết quả)</small>
-        </h3>
+    <div class="w-full mt-4 mb-4">
+        <h2 class="text-center text-2xl md:text-3xl font-bold text-gray-800">
+            Kết quả tìm kiếm cho: <span class="text-primary">"{{ $query == null ? 'trống' : $query }}"</span>
+        </h2>
+        <p class="text-center text-gray-500 mt-2">{{ $xes->count() }} xe được tìm thấy</p>
     </div>
 
     <!-- Filter Section - Fixed on scroll -->
     <div class="fixed top-16 left-0 right-0 z-40 bg-white shadow-md transition-all duration-300" id="filter-section">
         <div class="max-w-7xl mx-auto px-4">
             <div class="py-4">
-                <div class="flex flex-col md:flex-row gap-4 items-center">
-                    <div class="flex flex-wrap gap-2 flex-1 w-full md:w-auto">
-                        <a href="{{ route('pages.thuexe') }}" class="relative flex items-center gap-2 border border-gray-400 rounded-full px-3 py-2 hover:bg-gray-50 transition-colors">
-                            <i class="ti-back-left text-xl"></i>
-                        </a>
-                        <div class="relative flex items-center gap-2 border border-gray-400 rounded-full px-3 py-2">
-                            <i class="ti-car text-xl"></i>
-                            <select class="outline-none border-none bg-transparent cursor-pointer text-sm">
-                                <option selected value="None">Dòng xe</option>
-                                                @foreach ($dongXes as $dongXe)
-                                    <option value="{{ $dongXe->iddongxe }}">{{ $dongXe->tendongxe }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                        <div class="relative flex items-center gap-2 border border-gray-400 rounded-full px-3 py-2">
-                            <i class="ti-world text-xl"></i>
-                            <select class="outline-none border-none bg-transparent cursor-pointer text-sm">
-                                <option selected value="None">Hãng xe</option>
-                                                @foreach ($hangXes as $hangXe)
-                                    <option value="{{ $hangXe->idhangxe }}">{{ $hangXe->tenhangxe }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                    <button class="px-4 py-2 bg-white border border-gray-400 rounded-full hover:bg-gray-50 transition-colors flex items-center gap-2 text-sm font-semibold">
-                        <i class="ti-filter"></i>Lọc
-                    </button>
-                </div>
+                <form action="{{ route('filter') }}" method="GET">
+                    @if(request('q'))
+                        <input type="hidden" name="q" value="{{ request('q') }}">
+                    @endif
+                    <div class="flex flex-col md:flex-row gap-4 items-center">
+                        <div class="flex flex-wrap gap-2 flex-1 w-full md:w-auto">
+                            <a href="{{ route('pages.thuexe') }}" class="relative flex items-center gap-2 border border-gray-400 rounded-full px-3 py-2 hover:bg-gray-50 transition-colors">
+                                <i class="ti-back-left text-xl"></i>
+                            </a>
+                            <div class="relative flex items-center gap-2 border border-gray-400 rounded-full px-3 py-2">
+                                <i class="ti-car text-xl"></i>
+                                <select name="dongxe" class="outline-none border-none bg-transparent cursor-pointer text-sm">
+                                    <option selected value="None">Dòng xe</option>
+                                    @foreach ($dongXes as $dongXe)
+                                        <option value="{{ $dongXe->iddongxe }}" {{ request('dongxe') == $dongXe->iddongxe ? 'selected' : '' }}>{{ $dongXe->tendongxe }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="relative flex items-center gap-2 border border-gray-400 rounded-full px-3 py-2">
+                                <i class="ti-world text-xl"></i>
+                                <select name="hangxe" class="outline-none border-none bg-transparent cursor-pointer text-sm">
+                                    <option selected value="None">Hãng xe</option>
+                                    @foreach ($hangXes as $hangXe)
+                                        <option value="{{ $hangXe->idhangxe }}" {{ request('hangxe') == $hangXe->idhangxe ? 'selected' : '' }}>{{ $hangXe->tenhangxe }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="px-4 py-2 bg-white border border-gray-400 rounded-full hover:bg-gray-50 transition-colors flex items-center gap-2 text-sm font-semibold">
+                            <i class="ti-filter"></i>Bộ lọc
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
     <!-- Main Content -->
-    <div class="max-w-7xl mx-auto px-4 mt-32 md:mt-28">
+    <div class="w-full mt-32 md:mt-28">
         <div class="w-full">
             <ul class="flex flex-wrap gap-5 justify-start">
                 @foreach ($xes as $xe)
@@ -93,7 +99,7 @@
                                 <div class="w-full h-px bg-gray-200 my-2"></div>
                                 <div class="flex flex-col items-end">
                                     <div>
-                                        <span class="text-primary text-base font-black">{{ number_format($xe->gia) }}K</span>/&nbsp;ngày
+                                        <span class="text-primary text-base font-black">{{ number_format($xe->gia) }}đ</span>/&nbsp;ngày
                                     </div>
                                 </div>
                             </div>

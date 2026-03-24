@@ -55,7 +55,7 @@
                         <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
                             <p class="text-base font-bold">Tổng giá trị</p>
                             <p class="text-2xl font-extrabold text-primary">
-                                    <strong>{{ number_format($hoaDon->tongtien) }}K</strong>
+                                    <strong>{{ number_format($hoaDon->tongtien) }}đ</strong>
                                 </p>
                             </div>
 

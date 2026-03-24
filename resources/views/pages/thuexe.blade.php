@@ -86,7 +86,7 @@
                                 <div class="w-full h-px bg-gray-200 my-2"></div>
                                 <div class="flex flex-col items-end">
                                     <div>
-                                        <span class="text-primary text-base font-black">{{ number_format($xe->gia) }}K</span>/&nbsp;ngày
+                                        <span class="text-primary text-base font-black">{{ number_format($xe->gia) }}đ</span>/&nbsp;ngày
                                     </div>
                                 </div>
                             </div>
