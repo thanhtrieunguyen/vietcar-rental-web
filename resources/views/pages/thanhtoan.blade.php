@@ -25,12 +25,11 @@
                             <div class="content-payment space-y-4">
                                 <p class="text-base">1. Lựa chọn ví điện tử</p>
                                 <div class="radio-payment flex gap-4">
-                                    <div class="custom-radio">
-                                        <input type="radio" id="r_e_0" name="Ví điện tử_vnpay_radio" checked class="hidden">
-                                        <label for="r_e_0" class="cursor-pointer border-2 border-primary rounded-lg p-4 hover:bg-blue-50 transition-colors">
-                                            <img loading="lazy" class="e-wallet" src="./static/img/logo-vnpay.png" alt="VNPay" width="100px">
-                                        </label>
-                                    </div>
+                                    <label for="payment-vnpay" 
+                                           class="payment-card cursor-pointer border-2 border-primary rounded-lg p-4 hover:bg-blue-50 transition-colors flex items-center justify-center">
+                                        <input type="radio" id="payment-vnpay" name="payment_method" value="vnpay" class="sr-only payment-method-radio" checked>
+                                        <img loading="lazy" class="e-wallet" src="./static/img/logo-vnpay.png" alt="VNPay" width="100px">
+                                    </label>
                                 </div>
                                 <p class="text-base">2. Bấm <strong>"THANH TOÁN"</strong> để chuyển hướng về ví điện tử và tiến hành đặt cọc.</p>
                                 <p class="text-base">3. Nhập thông tin tài khoản hoặc quét mã thanh toán.</p>
@@ -64,6 +63,7 @@
                                 @csrf
                                 <input type="hidden" name="idhoadon" value="{{ $hoaDon->idhoadon }}">
                                 <input type="hidden" name="tongtien" value="{{ $hoaDon->tongtien }}">
+                                <input type="hidden" name="payment_method" id="paymentMethodValue" value="vnpay">
                             <button type="submit" id="paymentBtn" 
                                     class="w-full px-6 py-4 bg-primary text-white rounded-lg font-bold hover:bg-primary-dark transition-colors mb-4">
                                 Thanh toán với VNPAY
@@ -81,4 +81,32 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Keep the hidden form value in sync with the selected payment option
+        (function() {
+            const radios = document.querySelectorAll('.payment-method-radio');
+            const hiddenInput = document.getElementById('paymentMethodValue');
+
+            // Apply selected styling
+            function refreshStyles() {
+                radios.forEach(radio => {
+                    const card = radio.closest('.payment-card');
+                    card?.classList.toggle('ring-2', radio.checked);
+                    card?.classList.toggle('ring-primary', radio.checked);
+                    card?.classList.toggle('border-primary', radio.checked);
+                    card?.classList.toggle('border-gray-200', !radio.checked);
+                });
+            }
+
+            radios.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    if (hiddenInput) hiddenInput.value = radio.value;
+                    refreshStyles();
+                });
+            });
+
+            refreshStyles();
+        })();
+    </script>
 @endsection

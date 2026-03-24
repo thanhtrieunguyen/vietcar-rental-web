@@ -1,4 +1,4 @@
-<nav class="bg-white fixed top-0 left-0 right-0 z-50 shadow-sm" style="background-image: url(https://www.mioto.vn/static/media/header.350aa232.png);">
+<nav id="site-header" class="bg-white fixed top-0 left-0 right-0 z-50 shadow-sm transition-transform duration-300">
     <div class="max-w-7xl mx-auto px-4">
         <div class="flex items-center justify-between h-16">
             <a class="flex items-center" href="/">
@@ -79,4 +79,16 @@
         const menu = document.getElementById('mobile-menu');
         menu?.classList.toggle('hidden');
     });
+
+    // Hide header after leaving top; only re-show when back at top
+    (function() {
+        const header = document.getElementById('site-header');
+        const threshold = 64; // header height buffer
+
+        window.addEventListener('scroll', function() {
+            const currentY = window.scrollY;
+            const atTop = currentY <= threshold;
+            header?.classList.toggle('-translate-y-full', !atTop);
+        });
+    })();
 </script>

@@ -24,18 +24,17 @@
         <div class="mb-4 md:mb-6">
             <h4 class="text-center uppercase text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">Xe tốt nhất</h4>
         </div>
-        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5">
+        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
             @foreach ($xes as $xe)
                 @php
                     $array = json_decode($xe->hinhxe->hinhxe);
                     $img1 = isset($array[1]) ? $array[1] : null;
                 @endphp
                 <li>
-                    <a href="{{ route('xe.show', ['id' => $xe->idxe]) }}" class="block border border-gray-200 rounded-xl p-4 bg-white hover:shadow-lg transition-shadow cursor-pointer">
+                    <a href="{{ route('xe.show', ['id' => $xe->idxe]) }}" class="block border border-gray-200 rounded-xl p-4 bg-white cursor-pointer">
                         <div class="relative mb-4">
                             <span class="absolute top-2 left-2 z-10 flex flex-col gap-2">
                                 <span class="px-2 py-1 rounded-full bg-black bg-opacity-50 text-white text-xs font-semibold flex items-center gap-1">
-                                    Đặt xe nhanh 
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M12.9733 7.70015L8.46667 14.2668C8.29334 14.5268 8.01335 14.6668 7.71335 14.6668C7.62002 14.6668 7.52667 14.6535 7.43334 14.6268C7.05334 14.5068 6.79335 14.1668 6.79335 13.7735V10.0135C6.79335 9.86015 6.64667 9.72682 6.46667 9.72682L3.78001 9.6935C3.44001 9.6935 3.12668 9.50016 2.97335 9.20682C2.82668 8.92016 2.84668 8.5735 3.03335 8.30017L7.53335 1.7335C7.76001 1.40016 8.18001 1.25349 8.56668 1.37349C8.94668 1.49349 9.20668 1.83349 9.20668 2.22682V5.98683C9.20668 6.14017 9.35335 6.2735 9.53335 6.2735L12.22 6.30682C12.56 6.30682 12.8733 6.49349 13.0267 6.79349C13.1733 7.08016 13.1533 7.42682 12.9733 7.70015Z" fill="#FFC634"></path>
                                     </svg>

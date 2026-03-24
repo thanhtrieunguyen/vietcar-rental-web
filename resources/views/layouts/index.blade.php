@@ -24,7 +24,7 @@
 
 <body class="font-manrope" id="page-top">
     @include('layouts.header')
-    <div class="container mx-auto px-4 py-4" style="min-height: calc(100vh - 166px); margin-top: 56px">
+    <div class="container mx-auto px-20 py-8 bg-gray-50" style="min-height: calc(100vh - 166px); margin-top: 56px">
         @yield('content')
     </div>
 

@@ -151,30 +151,45 @@
     </div>
 
     <script>
-        // Tab switching functionality
-        document.querySelectorAll('[data-toggle="pill"]').forEach(tab => {
-            tab.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                
-                // Hide all tab panes
-                document.querySelectorAll('.tab-pane').forEach(pane => {
-                    pane.classList.remove('show', 'active');
-                });
-                
-                // Remove active from all tabs
-                document.querySelectorAll('.tab-link').forEach(link => {
-                    link.classList.remove('active', 'border-primary', 'text-primary');
-                    link.classList.add('border-transparent', 'text-gray-600');
-                });
-                
-                // Show target pane
-                document.querySelector(targetId).classList.add('show', 'active');
-                
-                // Activate clicked tab
-                this.classList.add('active', 'border-primary', 'text-primary');
-                this.classList.remove('border-transparent', 'text-gray-600');
+        // Tab switching functionality (hide inactive panes)
+        (function() {
+            const tabs = document.querySelectorAll('[data-toggle="pill"]');
+            const panes = document.querySelectorAll('.tab-pane');
+
+            // Hide non-active panes on load
+            panes.forEach(pane => {
+                if (!pane.classList.contains('active')) {
+                    pane.classList.add('hidden');
+                }
             });
-        });
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+
+                    // Hide all panes
+                    panes.forEach(pane => {
+                        pane.classList.add('hidden');
+                        pane.classList.remove('show', 'active');
+                    });
+
+                    // Reset all tabs
+                    tabs.forEach(link => {
+                        link.classList.remove('active', 'border-primary', 'text-primary');
+                        link.classList.add('border-transparent', 'text-gray-600');
+                    });
+
+                    // Show target pane
+                    const targetPane = document.querySelector(targetId);
+                    targetPane?.classList.remove('hidden');
+                    targetPane?.classList.add('show', 'active');
+
+                    // Activate clicked tab
+                    this.classList.add('active', 'border-primary', 'text-primary');
+                    this.classList.remove('border-transparent', 'text-gray-600');
+                });
+            });
+        })();
     </script>
 @endsection
